@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Unit Converter</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Unit Converter</h1>
+
+    <!-- Temperature -->
+    <section>
+      <h2>Temperature (Celsius ↔ Fahrenheit)</h2>
+      <div class="row">
+        <label for="celsius">Celsius:</label>
+        <input id="celsius" type="number" placeholder="Celsius" />
+      </div>
+      <div class="row">
+        <label for="fahrenheit">Fahrenheit:</label>
+        <input id="fahrenheit" type="number" placeholder="Fahrenheit" />
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- Weight -->
+    <section>
+      <h2>Weight (Kilograms ↔ Pounds)</h2>
+      <div class="row">
+        <label for="kilograms">Kilograms:</label>
+        <input id="kilograms" type="number" placeholder="Kilograms" />
+      </div>
+      <div class="row">
+        <label for="pounds">Pounds:</label>
+        <input id="pounds" type="number" placeholder="Pounds" />
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- Distance -->
+    <section>
+      <h2>Distance (Kilometers ↔ Miles)</h2>
+      <div class="row">
+        <label for="kilometers">Kilometers:</label>
+        <input id="kilometers" type="number" placeholder="Kilometers" />
+      </div>
+      <div class="row">
+        <label for="miles">Miles:</label>
+        <input id="miles" type="number" placeholder="Miles" />
+      </div>
+    </section>
+
+    <p class="hint">Tip: type in any box to see the converted value.</p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

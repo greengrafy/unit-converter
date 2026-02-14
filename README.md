@@ -48,9 +48,8 @@ Perfect as a **beginner-friendly** front‑end project and a nice addition to yo
 ## 🌍 Live Demo
 
 👉 **GitHub Pages:**  
-`https://your-username.github.io/your-repo-name/`
+`https://greengrafy.github.io/unit-converter/`
 
-(Replace with your actual URL.)
 
 ---
 

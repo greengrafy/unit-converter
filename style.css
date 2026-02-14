@@ -1,61 +1,115 @@
+/* Use the Poppins font we loaded in index.html */
 body {
-  font-family: Arial, sans-serif;
-  background: #f3f4f6;
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   margin: 0;
   padding: 0;
+  min-height: 100vh;
+
+  /* Colorful gradient background */
+  background: linear-gradient(135deg, #4f46e5, #ec4899, #f97316);
+  background-size: 200% 200%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* Card container */
 .container {
-  max-width: 500px;
-  margin: 40px auto;
-  background: #ffffff;
-  padding: 20px 25px 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  max-width: 520px;
+  width: 90%;
+  background: #ffffffee; /* slightly transparent white */
+  padding: 24px 26px 28px;
+  border-radius: 16px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(8px);
+}
+
+/* Header with title and optional icon */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.header img {
+  width: 40px;
+  height: 40px;
 }
 
 h1 {
-  text-align: center;
-  margin-top: 0;
+  font-size: 1.6rem;
+  margin: 0;
 }
 
+/* Section titles */
 h2 {
-  font-size: 1.1rem;
-  margin-bottom: 10px;
+  font-size: 1.05rem;
+  margin: 16px 0 8px;
+  color: #1f2933;
 }
 
 .row {
   display: flex;
   align-items: center;
   margin-bottom: 8px;
+  gap: 8px;
 }
 
 .row label {
-  width: 120px;
+  width: 130px;
+  font-size: 0.9rem;
+  color: #4b5563;
 }
 
 .row input {
   flex: 1;
-  padding: 6px 8px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
+  padding: 7px 9px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 0.95rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.05s ease;
 }
 
 .row input:focus {
   outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 1px #2563eb33;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 1px #6366f166;
+  transform: translateY(-1px);
 }
 
 hr {
-  margin: 20px 0;
+  margin: 18px 0 10px;
   border: none;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px dashed #e5e7eb;
 }
 
 .hint {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: #6b7280;
   text-align: center;
-  margin-top: 15px;
+  margin-top: 16px;
+}
+
+/* Small badge-like subtitle under the header (optional) */
+.subtitle {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+
+/* Make it look good on very small screens */
+@media (max-width: 480px) {
+  .container {
+    padding: 18px 16px 22px;
+  }
+
+  .row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .row label {
+    width: 100%;
+  }
 }

@@ -1,3 +1,205 @@
+// TAB MANAGEMENT
+const tabButtons = document.querySelectorAll('.tab-btn');
+const tabPanels = document.querySelectorAll('.tab-panel');
+let currentTab = 'unit-converter';
+
+tabButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    const targetTab = button.dataset.tab;
+    
+    if (targetTab === currentTab) return;
+
+    // Determine animation direction
+    const currentIndex = Array.from(tabButtons).findIndex(btn => btn.dataset.tab === currentTab);
+    const targetIndex = Array.from(tabButtons).findIndex(btn => btn.dataset.tab === targetTab);
+    const isMovingRight = targetIndex > currentIndex;
+
+    // Remove active class from current tab and button
+    const currentPanel = document.getElementById(currentTab);
+    const currentButton = document.querySelector(`[data-tab="${currentTab}"]`);
+    
+    currentPanel.classList.add(isMovingRight ? 'exit-left' : 'exit-right');
+    currentButton.classList.remove('active');
+
+    // Add active class to new tab and button
+    const targetPanel = document.getElementById(targetTab);
+    targetPanel.classList.add('active');
+    button.classList.add('active');
+
+    // Update current tab
+    currentTab = targetTab;
+
+    // Remove exit animation class after animation completes
+    setTimeout(() => {
+      currentPanel.classList.remove('exit-left', 'exit-right', 'active');
+    }, 400);
+  });
+});
+
+// CALCULATOR
+let calcDisplay = document.getElementById('calc-input');
+let calcOutput = document.getElementById('calc-output');
+let calcState = {
+  current: '0',
+  previous: '',
+  operator: null,
+  shouldResetDisplay: false,
+  history: JSON.parse(localStorage.getItem('calcHistory')) || []
+};
+
+function updateDisplay() {
+  calcDisplay.textContent = calcState.current;
+}
+
+function appendNumber(num) {
+  if (calcState.shouldResetDisplay) {
+    calcState.current = String(num);
+    calcState.shouldResetDisplay = false;
+  } else {
+    if (calcState.current === '0' && num !== '.') {
+      calcState.current = String(num);
+    } else if (num === '.' && calcState.current.includes('.')) {
+      return;
+    } else {
+      calcState.current += num;
+    }
+  }
+  updateDisplay();
+}
+
+function setOperator(op) {
+  if (calcState.operator !== null && !calcState.shouldResetDisplay) {
+    calculate();
+  }
+  calcState.previous = calcState.current;
+  calcState.operator = op;
+  calcState.shouldResetDisplay = true;
+}
+
+function calculate() {
+  if (calcState.operator === null || calcState.shouldResetDisplay) return;
+
+  let result;
+  const prev = parseFloat(calcState.previous);
+  const current = parseFloat(calcState.current);
+
+  switch (calcState.operator) {
+    case '+':
+      result = prev + current;
+      break;
+    case '-':
+      result = prev - current;
+      break;
+    case '*':
+      result = prev * current;
+      break;
+    case '/':
+      result = current !== 0 ? prev / current : NaN;
+      break;
+    case '%':
+      result = prev % current;
+      break;
+    default:
+      return;
+  }
+
+  const historyEntry = `${prev} ${calcState.operator} ${current} = ${result}`;
+  calcState.history.push(historyEntry);
+  localStorage.setItem('calcHistory', JSON.stringify(calcState.history));
+  addHistoryItem(historyEntry);
+
+  calcState.current = String(result);
+  calcState.operator = null;
+  calcState.shouldResetDisplay = true;
+  updateDisplay();
+}
+
+function clearCalculator() {
+  calcState.current = '0';
+  calcState.previous = '';
+  calcState.operator = null;
+  calcState.shouldResetDisplay = false;
+  updateDisplay();
+  calcOutput.textContent = '';
+}
+
+function deleteLastCharacter() {
+  if (calcState.current.length > 1) {
+    calcState.current = calcState.current.slice(0, -1);
+  } else {
+    calcState.current = '0';
+  }
+  updateDisplay();
+}
+
+// Calculate button handlers
+document.querySelectorAll('.calc-btn').forEach(button => {
+  button.addEventListener('click', () => {
+    const num = button.dataset.num;
+    const op = button.dataset.op;
+    const action = button.dataset.action;
+
+    if (num !== undefined) {
+      appendNumber(num);
+    } else if (op !== undefined) {
+      setOperator(op);
+    } else if (action === 'clear') {
+      clearCalculator();
+    } else if (action === 'delete') {
+      deleteLastCharacter();
+    } else if (action === 'equals') {
+      calculate();
+    }
+  });
+});
+
+// History management
+const historyList = document.getElementById('calc-history');
+const clearHistoryBtn = document.getElementById('clear-history');
+
+function addHistoryItem(entry) {
+  if (calcState.history.length === 1) {
+    historyList.innerHTML = '';
+  }
+  const item = document.createElement('div');
+  item.className = 'history-item';
+  item.textContent = entry;
+  item.addEventListener('click', () => {
+    const result = entry.split(' = ')[1];
+    calcState.current = result;
+    updateDisplay();
+  });
+  historyList.insertBefore(item, historyList.firstChild);
+}
+
+function renderHistory() {
+  historyList.innerHTML = '';
+  if (calcState.history.length === 0) {
+    historyList.innerHTML = '<p class="empty-message">No calculations yet</p>';
+    return;
+  }
+  calcState.history.forEach(entry => {
+    const item = document.createElement('div');
+    item.className = 'history-item';
+    item.textContent = entry;
+    item.addEventListener('click', () => {
+      const result = entry.split(' = ')[1];
+      calcState.current = result;
+      updateDisplay();
+    });
+    historyList.appendChild(item);
+  });
+}
+
+clearHistoryBtn.addEventListener('click', () => {
+  calcState.history = [];
+  localStorage.setItem('calcHistory', JSON.stringify(calcState.history));
+  renderHistory();
+});
+
+// Initialize history on page load
+renderHistory();
+
 // Generic converter helpers and wiring
 const announcer = document.getElementById('announcer');
 

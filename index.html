@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Unit Converter</title>
+  <title>Multi-Tool Suite</title>
 
   <!-- Google Font: Poppins -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,16 +19,29 @@
         <path fill="#4f46e5" d="M12 2L15 8l6 .5-4.5 3 1.5 6L12 14l-6 4 1.5-6L3 8.5 9 8z"></path>
       </svg>
       <div>
-        <h1>Unit Converter</h1>
-        <div class="subtitle">Quick conversions for everyday units</div>
-        <div class="header-actions">
-          <button id="clear-all" class="small-btn" title="Clear all fields">Clear all</button>
-        </div>
+        <h1>Multi-Tool Suite</h1>
+        <div class="subtitle">Your toolkit for conversions and calculations</div>
       </div>
     </header>
 
+    <!-- Tab Navigation -->
+    <div class="tabs-container">
+      <button class="tab-btn active" data-tab="unit-converter">Unit Converter</button>
+      <button class="tab-btn" data-tab="calculator">Calculator</button>
+      <button class="tab-btn" data-tab="work-in-progress">Coming Soon</button>
+    </div>
+
+    <!-- Main Content -->
+    <main class="tab-content">
+
+    <!-- TAB 1: Unit Converter -->
+    <div id="unit-converter" class="tab-panel active">
+      <div class="panel-content">
+        <div class="header-actions">
+          <button id="clear-all" class="small-btn" title="Clear all fields">Clear all</button>
+        </div>
+      
     <!-- Temperature -->
-    <main>
     <section>
       <h2>Temperature (Celsius ↔ Fahrenheit)</h2>
       <div class="converter" data-a="celsius" data-b="fahrenheit">
@@ -122,29 +135,95 @@
       </div>
     </section>
     
-    <p class="hint">Tip: type in any box to see the converted value.</p>
+        <p class="hint">Tip: type in any box to see the converted value.</p>
 
-    <!-- Conversion Rate Reference -->
-    <section class="conversion-rates-section">
-      <label for="conversion-rate-dropdown"><strong>Conversion Rates Reference:</strong></label>
-      <select id="conversion-rate-dropdown">
-        <option value="">Select a conversion type...</option>
-        <option value="celsius-fahrenheit">Temperature: Celsius → Fahrenheit</option>
-        <option value="fahrenheit-celsius">Temperature: Fahrenheit → Celsius</option>
-        <option value="kilograms-pounds">Weight: Kilograms → Pounds</option>
-        <option value="pounds-kilograms">Weight: Pounds → Kilograms</option>
-        <option value="kilometers-miles">Distance: Kilometers → Miles</option>
-        <option value="miles-kilometers">Distance: Miles → Kilometers</option>
-        <option value="liters-gallons">Volume: Liters → Gallons</option>
-        <option value="gallons-liters">Volume: Gallons → Liters</option>
-      </select>
-      <div id="conversion-rate-display" class="conversion-rate-display"></div>
-    </section>
+        <!-- Conversion Rate Reference -->
+        <section class="conversion-rates-section">
+          <label for="conversion-rate-dropdown"><strong>Conversion Rates Reference:</strong></label>
+          <select id="conversion-rate-dropdown">
+            <option value="">Select a conversion type...</option>
+            <option value="celsius-fahrenheit">Temperature: Celsius → Fahrenheit</option>
+            <option value="fahrenheit-celsius">Temperature: Fahrenheit → Celsius</option>
+            <option value="kilograms-pounds">Weight: Kilograms → Pounds</option>
+            <option value="pounds-kilograms">Weight: Pounds → Kilograms</option>
+            <option value="kilometers-miles">Distance: Kilometers → Miles</option>
+            <option value="miles-kilometers">Distance: Miles → Kilometers</option>
+            <option value="liters-gallons">Volume: Liters → Gallons</option>
+            <option value="gallons-liters">Volume: Gallons → Liters</option>
+          </select>
+          <div id="conversion-rate-display" class="conversion-rate-display"></div>
+        </section>
+      </div>
+    </div>
+
+    <!-- TAB 2: Calculator -->
+    <div id="calculator" class="tab-panel">
+      <div class="panel-content">
+        <div class="calculator">
+          <div class="display">
+            <div class="display-input" id="calc-input">0</div>
+            <div class="display-output" id="calc-output"></div>
+          </div>
+          <div class="buttons-grid">
+            <button class="calc-btn clear-calc" data-action="clear">C</button>
+            <button class="calc-btn delete-btn" data-action="delete">DEL</button>
+            <button class="calc-btn operator" data-op="/">÷</button>
+            <button class="calc-btn operator" data-op="*">×</button>
+            
+            <button class="calc-btn" data-num="7">7</button>
+            <button class="calc-btn" data-num="8">8</button>
+            <button class="calc-btn" data-num="9">9</button>
+            <button class="calc-btn operator" data-op="-">−</button>
+            
+            <button class="calc-btn" data-num="4">4</button>
+            <button class="calc-btn" data-num="5">5</button>
+            <button class="calc-btn" data-num="6">6</button>
+            <button class="calc-btn operator" data-op="+">+</button>
+            
+            <button class="calc-btn" data-num="1">1</button>
+            <button class="calc-btn" data-num="2">2</button>
+            <button class="calc-btn" data-num="3">3</button>
+            <button class="calc-btn operator" data-op="%">%</button>
+            
+            <button class="calc-btn zero" data-num="0">0</button>
+            <button class="calc-btn decimal" data-num=".">.</button>
+            <button class="calc-btn equals" data-action="equals">=</button>
+          </div>
+        </div>
+        
+        <div class="history-section">
+          <div class="history-header">
+            <h3>Calculation History</h3>
+            <button id="clear-history" class="small-btn">Clear</button>
+          </div>
+          <div id="calc-history" class="history-list">
+            <p class="empty-message">No calculations yet</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: Work in Progress -->
+    <div id="work-in-progress" class="tab-panel">
+      <div class="panel-content wip-content">
+        <div class="stop-sign-container">
+          <div class="stop-sign">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="30,10 70,10 90,30 90,70 70,90 30,90 10,70 10,30" fill="#DC2626" stroke="white" stroke-width="3"/>
+              <text x="50" y="70" font-size="48" font-weight="bold" fill="white" text-anchor="middle" font-family="Arial">!</text>
+            </svg>
+          </div>
+          <h2>Coming Soon</h2>
+          <p>This feature is still in development. Check back later!</p>
+        </div>
+      </div>
+    </div>
+
+    </main>
 
     <!-- Live region for screen readers -->
     <div id="announcer" aria-live="polite" class="visually-hidden">Ready</div>
 
-    </main>
   </div>
 
   <script src="script.js"></script>

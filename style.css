@@ -71,6 +71,20 @@ h2 {
   transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.05s ease;
 }
 
+.copy-btn {
+  margin-left: 8px;
+  padding: 6px 8px;
+  font-size: 0.8rem;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: white;
+  cursor: pointer;
+}
+
+.copy-btn:active { transform: translateY(1px); }
+
+.visually-hidden { position: absolute !important; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px); white-space: nowrap; }
+
 .row input:focus {
   outline: none;
   border-color: #6366f1;

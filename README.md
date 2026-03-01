@@ -59,6 +59,10 @@ Perfect as a **beginner-friendly** front‑end project and a nice addition to yo
 - 🎛️ Add a dropdown to choose which converter to show
 - 🌙 Dark mode toggle
 - 💾 “Copy result” button
+ - ✅ Accessibility improvements (aria-live readouts, semantic elements)
+ - ✅ Improved mobile input (`inputmode="decimal"`) and copy buttons
+ - ✅ Refactored JS for easier extension and locale-aware formatting
+
 
 ---
 
@@ -72,3 +76,7 @@ Perfect as a **beginner-friendly** front‑end project and a nice addition to yo
 ---
 
 If you like this project, feel free to ⭐ the repo or fork it and add your own twist 😄
+
+## 🧪 Tests
+
+There is a small `scripts/test-formulas.js` (not included in this commit) you can add to run basic formula checks with Node. A CI workflow can run it on push to keep formulas correct over time.

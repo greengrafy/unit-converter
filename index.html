@@ -13,25 +13,30 @@
 </head>
 <body>
     <div class="container">
-    <div class="header">
-      <!-- You can replace this URL with any icon you like -->
-      <img src="https://cdn-icons-png.flaticon.com/512/3844/3844712.png" alt="Converter icon" />
+    <header class="header">
+      <!-- Inline SVG to avoid external requests -->
+      <svg width="40" height="40" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path fill="#4f46e5" d="M12 2L15 8l6 .5-4.5 3 1.5 6L12 14l-6 4 1.5-6L3 8.5 9 8z"></path>
+      </svg>
       <div>
         <h1>Unit Converter</h1>
         <div class="subtitle">Quick conversions for everyday units</div>
       </div>
-    </div>
+    </header>
 
     <!-- Temperature -->
+    <main>
     <section>
       <h2>Temperature (Celsius ↔ Fahrenheit)</h2>
       <div class="row">
         <label for="celsius">Celsius:</label>
-        <input id="celsius" type="number" placeholder="Celsius" />
+        <input id="celsius" type="text" inputmode="decimal" pattern="[0-9.,+-]*" placeholder="Celsius" aria-label="Celsius input" />
+        <button class="copy-btn" data-target="celsius" title="Copy Celsius">Copy</button>
       </div>
       <div class="row">
         <label for="fahrenheit">Fahrenheit:</label>
-        <input id="fahrenheit" type="number" placeholder="Fahrenheit" />
+        <input id="fahrenheit" type="text" inputmode="decimal" pattern="[0-9.,+-]*" placeholder="Fahrenheit" aria-label="Fahrenheit input" />
+        <button class="copy-btn" data-target="fahrenheit" title="Copy Fahrenheit">Copy</button>
       </div>
     </section>
 
@@ -42,11 +47,13 @@
       <h2>Weight (Kilograms ↔ Pounds)</h2>
       <div class="row">
         <label for="kilograms">Kilograms:</label>
-        <input id="kilograms" type="number" placeholder="Kilograms" />
+        <input id="kilograms" type="text" inputmode="decimal" pattern="[0-9.,+-]*" placeholder="Kilograms" aria-label="Kilograms input" />
+        <button class="copy-btn" data-target="kilograms" title="Copy Kilograms">Copy</button>
       </div>
       <div class="row">
         <label for="pounds">Pounds:</label>
-        <input id="pounds" type="number" placeholder="Pounds" />
+        <input id="pounds" type="text" inputmode="decimal" pattern="[0-9.,+-]*" placeholder="Pounds" aria-label="Pounds input" />
+        <button class="copy-btn" data-target="pounds" title="Copy Pounds">Copy</button>
       </div>
     </section>
 
@@ -57,15 +64,22 @@
       <h2>Distance (Kilometers ↔ Miles)</h2>
       <div class="row">
         <label for="kilometers">Kilometers:</label>
-        <input id="kilometers" type="number" placeholder="Kilometers" />
+        <input id="kilometers" type="text" inputmode="decimal" pattern="[0-9.,+-]*" placeholder="Kilometers" aria-label="Kilometers input" />
+        <button class="copy-btn" data-target="kilometers" title="Copy Kilometers">Copy</button>
       </div>
       <div class="row">
         <label for="miles">Miles:</label>
-        <input id="miles" type="number" placeholder="Miles" />
+        <input id="miles" type="text" inputmode="decimal" pattern="[0-9.,+-]*" placeholder="Miles" aria-label="Miles input" />
+        <button class="copy-btn" data-target="miles" title="Copy Miles">Copy</button>
       </div>
     </section>
-
+    
     <p class="hint">Tip: type in any box to see the converted value.</p>
+
+    <!-- Live region for screen readers -->
+    <div id="announcer" aria-live="polite" class="visually-hidden">Ready</div>
+
+    </main>
   </div>
 
   <script src="script.js"></script>

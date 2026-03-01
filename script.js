@@ -101,70 +101,76 @@ function getConversionFns(aId, bId) {
   return { toB: x => x, toA: x => x };
 }
 
-document.querySelectorAll('.converter').forEach(container => {
-  const aId = container.dataset.a;
-  const bId = container.dataset.b;
-  const aEl = document.getElementById(aId);
-  const bEl = document.getElementById(bId);
-  const formattedBEl = document.getElementById('formatted-' + bId);
-  const formattedAEl = document.getElementById('formatted-' + aId);
-  const { toB, toA } = getConversionFns(aId, bId);
+function initConverters() {
+  document.querySelectorAll('.converter').forEach(container => {
+    const aId = container.dataset.a;
+    const bId = container.dataset.b;
+    const aEl = document.getElementById(aId);
+    const bEl = document.getElementById(bId);
+    const formattedBEl = document.getElementById('formatted-' + bId);
+    const formattedAEl = document.getElementById('formatted-' + aId);
+    const { toB, toA } = getConversionFns(aId, bId);
 
-  if (!aEl || !bEl) return;
+    if (!aEl || !bEl) return;
 
-  setupConverter(aEl, bEl, toB, toA, formattedBEl, formattedAEl);
+    setupConverter(aEl, bEl, toB, toA, formattedBEl, formattedAEl);
 
-  // Swap handler
-  const swapBtn = container.querySelector('.swap-btn');
-  if (swapBtn) {
-    swapBtn.addEventListener('click', () => {
-      const wasAReadOnly = aEl.readOnly;
-      // swap readonly states
-      aEl.readOnly = !aEl.readOnly;
-      bEl.readOnly = !bEl.readOnly;
-      // swap values so the editable field keeps current numeric value, and recompute
-      if (!aEl.readOnly) {
-        // now aEl editable — compute from a
-        aEl.focus();
-        aEl.dispatchEvent(new Event('input'));
-      } else {
-        bEl.focus();
-        bEl.dispatchEvent(new Event('input'));
-      }
-    });
-  }
+    // Swap handler
+    const swapBtn = container.querySelector('.swap-btn');
+    if (swapBtn) {
+      swapBtn.addEventListener('click', () => {
+        // swap readonly states
+        aEl.readOnly = !aEl.readOnly;
+        bEl.readOnly = !bEl.readOnly;
+        // trigger recompute from the now-editable field
+        if (!aEl.readOnly) {
+          aEl.focus();
+          aEl.dispatchEvent(new Event('input'));
+        } else {
+          bEl.focus();
+          bEl.dispatchEvent(new Event('input'));
+        }
+      });
+    }
 
-  // Clear handler for this converter
-  const clearBtn = container.querySelector('.clear-btn');
-  if (clearBtn) {
-    clearBtn.addEventListener('click', () => {
-      aEl.value = '';
-      bEl.value = '';
-      if (formattedAEl) formattedAEl.textContent = '';
-      if (formattedBEl) formattedBEl.textContent = '';
-      announce('Cleared converter');
-    });
-  }
-});
-
-// Global clear-all
-const clearAllBtn = document.getElementById('clear-all');
-if (clearAllBtn) {
-  clearAllBtn.addEventListener('click', () => {
-    document.querySelectorAll('.converter').forEach(container => {
-      const aId = container.dataset.a;
-      const bId = container.dataset.b;
-      const aEl = document.getElementById(aId);
-      const bEl = document.getElementById(bId);
-      if (aEl) aEl.value = '';
-      if (bEl) bEl.value = '';
-      const formattedAEl = document.getElementById('formatted-' + aId);
-      const formattedBEl = document.getElementById('formatted-' + bId);
-      if (formattedAEl) formattedAEl.textContent = '';
-      if (formattedBEl) formattedBEl.textContent = '';
-    });
-    announce('Cleared all converters');
+    // Clear handler for this converter
+    const clearBtn = container.querySelector('.clear-btn');
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        aEl.value = '';
+        bEl.value = '';
+        if (formattedAEl) formattedAEl.textContent = '';
+        if (formattedBEl) formattedBEl.textContent = '';
+        announce('Cleared converter');
+      });
+    }
   });
+
+  // Global clear-all
+  const clearAllBtn = document.getElementById('clear-all');
+  if (clearAllBtn) {
+    clearAllBtn.addEventListener('click', () => {
+      document.querySelectorAll('.converter').forEach(container => {
+        const aId = container.dataset.a;
+        const bId = container.dataset.b;
+        const aEl = document.getElementById(aId);
+        const bEl = document.getElementById(bId);
+        if (aEl) aEl.value = '';
+        if (bEl) bEl.value = '';
+        const formattedAEl = document.getElementById('formatted-' + aId);
+        const formattedBEl = document.getElementById('formatted-' + bId);
+        if (formattedAEl) formattedAEl.textContent = '';
+        if (formattedBEl) formattedBEl.textContent = '';
+      });
+      announce('Cleared all converters');
+    });
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initConverters);
+} else {
+  initConverters();
 }
 
 // Copy button handlers
@@ -173,14 +179,26 @@ document.querySelectorAll('.copy-btn').forEach(btn => {
     const targetId = btn.getAttribute('data-target');
     const el = document.getElementById(targetId);
     if (!el || !el.value) return;
-    navigator.clipboard?.writeText(el.value).then(() => {
-      btn.textContent = 'Copied';
-      setTimeout(() => btn.textContent = 'Copy', 1200);
-    }).catch(() => {
-      // Fallback: select + execCopy
-      el.select?.();
-      try { document.execCommand('copy'); btn.textContent = 'Copied'; setTimeout(() => btn.textContent = 'Copy', 1200); } catch (e) {}
-    });
+    if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+      navigator.clipboard.writeText(el.value).then(() => {
+        btn.textContent = 'Copied';
+        setTimeout(() => btn.textContent = 'Copy', 1200);
+      }).catch(() => {
+        try {
+          if (typeof el.select === 'function') el.select();
+          document.execCommand('copy');
+          btn.textContent = 'Copied';
+          setTimeout(() => btn.textContent = 'Copy', 1200);
+        } catch (e) {}
+      });
+    } else {
+      try {
+        if (typeof el.select === 'function') el.select();
+        document.execCommand('copy');
+        btn.textContent = 'Copied';
+        setTimeout(() => btn.textContent = 'Copy', 1200);
+      } catch (e) {}
+    }
   });
 });
 

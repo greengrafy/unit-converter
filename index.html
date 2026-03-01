@@ -21,6 +21,9 @@
       <div>
         <h1>Unit Converter</h1>
         <div class="subtitle">Quick conversions for everyday units</div>
+        <div class="header-actions">
+          <button id="clear-all" class="small-btn" title="Clear all fields">Clear all</button>
+        </div>
       </div>
     </header>
 
@@ -28,15 +31,22 @@
     <main>
     <section>
       <h2>Temperature (Celsius ↔ Fahrenheit)</h2>
-      <div class="row">
-        <label for="celsius">Celsius:</label>
-        <input id="celsius" type="text" inputmode="decimal" pattern="[0-9.,+-]*" placeholder="Celsius" aria-label="Celsius input" />
-        <button class="copy-btn" data-target="celsius" title="Copy Celsius">Copy</button>
-      </div>
-      <div class="row">
-        <label for="fahrenheit">Fahrenheit:</label>
-        <input id="fahrenheit" type="text" inputmode="decimal" pattern="[0-9.,+-]*" placeholder="Fahrenheit" aria-label="Fahrenheit input" />
-        <button class="copy-btn" data-target="fahrenheit" title="Copy Fahrenheit">Copy</button>
+      <div class="converter" data-a="celsius" data-b="fahrenheit">
+        <div class="converter-actions">
+          <button class="swap-btn" title="Swap source/target">Swap</button>
+          <button class="clear-btn" title="Clear this converter">Clear</button>
+        </div>
+        <div class="row">
+          <label for="celsius">Celsius:</label>
+          <input id="celsius" class="value-a" type="text" inputmode="decimal" pattern="[0-9.,+-]*" placeholder="Celsius" aria-label="Celsius input" />
+          <button class="copy-btn" data-target="celsius" title="Copy Celsius">Copy</button>
+        </div>
+        <div class="row">
+          <label for="fahrenheit">Fahrenheit:</label>
+          <input id="fahrenheit" class="value-b" type="text" inputmode="decimal" pattern="[0-9.,+-]*" placeholder="Fahrenheit" aria-label="Fahrenheit input" readonly />
+          <span id="formatted-fahrenheit" class="formatted" aria-hidden="true"></span>
+          <button class="copy-btn" data-target="fahrenheit" title="Copy Fahrenheit">Copy</button>
+        </div>
       </div>
     </section>
 
@@ -45,15 +55,22 @@
     <!-- Weight -->
     <section>
       <h2>Weight (Kilograms ↔ Pounds)</h2>
-      <div class="row">
-        <label for="kilograms">Kilograms:</label>
-        <input id="kilograms" type="text" inputmode="decimal" pattern="[0-9.,+-]*" placeholder="Kilograms" aria-label="Kilograms input" />
-        <button class="copy-btn" data-target="kilograms" title="Copy Kilograms">Copy</button>
-      </div>
-      <div class="row">
-        <label for="pounds">Pounds:</label>
-        <input id="pounds" type="text" inputmode="decimal" pattern="[0-9.,+-]*" placeholder="Pounds" aria-label="Pounds input" />
-        <button class="copy-btn" data-target="pounds" title="Copy Pounds">Copy</button>
+      <div class="converter" data-a="kilograms" data-b="pounds">
+        <div class="converter-actions">
+          <button class="swap-btn" title="Swap source/target">Swap</button>
+          <button class="clear-btn" title="Clear this converter">Clear</button>
+        </div>
+        <div class="row">
+          <label for="kilograms">Kilograms:</label>
+          <input id="kilograms" class="value-a" type="text" inputmode="decimal" pattern="[0-9.,+-]*" placeholder="Kilograms" aria-label="Kilograms input" />
+          <button class="copy-btn" data-target="kilograms" title="Copy Kilograms">Copy</button>
+        </div>
+        <div class="row">
+          <label for="pounds">Pounds:</label>
+          <input id="pounds" class="value-b" type="text" inputmode="decimal" pattern="[0-9.,+-]*" placeholder="Pounds" aria-label="Pounds input" readonly />
+          <span id="formatted-pounds" class="formatted" aria-hidden="true"></span>
+          <button class="copy-btn" data-target="pounds" title="Copy Pounds">Copy</button>
+        </div>
       </div>
     </section>
 
@@ -62,15 +79,46 @@
     <!-- Distance -->
     <section>
       <h2>Distance (Kilometers ↔ Miles)</h2>
-      <div class="row">
-        <label for="kilometers">Kilometers:</label>
-        <input id="kilometers" type="text" inputmode="decimal" pattern="[0-9.,+-]*" placeholder="Kilometers" aria-label="Kilometers input" />
-        <button class="copy-btn" data-target="kilometers" title="Copy Kilometers">Copy</button>
+      <div class="converter" data-a="kilometers" data-b="miles">
+        <div class="converter-actions">
+          <button class="swap-btn" title="Swap source/target">Swap</button>
+          <button class="clear-btn" title="Clear this converter">Clear</button>
+        </div>
+        <div class="row">
+          <label for="kilometers">Kilometers:</label>
+          <input id="kilometers" class="value-a" type="text" inputmode="decimal" pattern="[0-9.,+-]*" placeholder="Kilometers" aria-label="Kilometers input" />
+          <button class="copy-btn" data-target="kilometers" title="Copy Kilometers">Copy</button>
+        </div>
+        <div class="row">
+          <label for="miles">Miles:</label>
+          <input id="miles" class="value-b" type="text" inputmode="decimal" pattern="[0-9.,+-]*" placeholder="Miles" aria-label="Miles input" readonly />
+          <span id="formatted-miles" class="formatted" aria-hidden="true"></span>
+          <button class="copy-btn" data-target="miles" title="Copy Miles">Copy</button>
+        </div>
       </div>
-      <div class="row">
-        <label for="miles">Miles:</label>
-        <input id="miles" type="text" inputmode="decimal" pattern="[0-9.,+-]*" placeholder="Miles" aria-label="Miles input" />
-        <button class="copy-btn" data-target="miles" title="Copy Miles">Copy</button>
+    </section>
+
+    <hr />
+
+    <!-- Volume -->
+    <section>
+      <h2>Volume (Liters ↔ Gallons)</h2>
+      <div class="converter" data-a="liters" data-b="gallons">
+        <div class="converter-actions">
+          <button class="swap-btn" title="Swap source/target">Swap</button>
+          <button class="clear-btn" title="Clear this converter">Clear</button>
+        </div>
+        <div class="row">
+          <label for="liters">Liters:</label>
+          <input id="liters" class="value-a" type="text" inputmode="decimal" pattern="[0-9.,+-]*" placeholder="Liters" aria-label="Liters input" />
+          <button class="copy-btn" data-target="liters" title="Copy Liters">Copy</button>
+        </div>
+        <div class="row">
+          <label for="gallons">Gallons:</label>
+          <input id="gallons" class="value-b" type="text" inputmode="decimal" pattern="[0-9.,+-]*" placeholder="Gallons" aria-label="Gallons input" readonly />
+          <span id="formatted-gallons" class="formatted" aria-hidden="true"></span>
+          <button class="copy-btn" data-target="gallons" title="Copy Gallons">Copy</button>
+        </div>
       </div>
     </section>
     

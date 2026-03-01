@@ -112,6 +112,65 @@ hr {
   margin-bottom: 4px;
 }
 
+/* Conversion rates section */
+.conversion-rates-section {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px dashed #e5e7eb;
+}
+
+.conversion-rates-section label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  color: #1f2933;
+}
+
+#conversion-rate-dropdown {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 0.9rem;
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+#conversion-rate-dropdown:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 1px #6366f166;
+}
+
+.conversion-rate-display {
+  margin-top: 12px;
+}
+
+.rate-info {
+  background: linear-gradient(135deg, #f0f4ff, #fef2f8);
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 3px solid #6366f1;
+}
+
+.rate-info p {
+  margin: 6px 0;
+  font-size: 0.9rem;
+  color: #1f2933;
+}
+
+.rate-info p strong {
+  color: #6366f1;
+}
+
+.rate-formula {
+  font-size: 0.8rem !important;
+  color: #6b7280 !important;
+  margin-top: 8px !important;
+  font-style: italic;
+}
+
 /* Make it look good on very small screens */
 @media (max-width: 480px) {
   .container {

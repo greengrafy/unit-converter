@@ -124,6 +124,23 @@
     
     <p class="hint">Tip: type in any box to see the converted value.</p>
 
+    <!-- Conversion Rate Reference -->
+    <section class="conversion-rates-section">
+      <label for="conversion-rate-dropdown"><strong>Conversion Rates Reference:</strong></label>
+      <select id="conversion-rate-dropdown">
+        <option value="">Select a conversion type...</option>
+        <option value="celsius-fahrenheit">Temperature: Celsius → Fahrenheit</option>
+        <option value="fahrenheit-celsius">Temperature: Fahrenheit → Celsius</option>
+        <option value="kilograms-pounds">Weight: Kilograms → Pounds</option>
+        <option value="pounds-kilograms">Weight: Pounds → Kilograms</option>
+        <option value="kilometers-miles">Distance: Kilometers → Miles</option>
+        <option value="miles-kilometers">Distance: Miles → Kilometers</option>
+        <option value="liters-gallons">Volume: Liters → Gallons</option>
+        <option value="gallons-liters">Volume: Gallons → Liters</option>
+      </select>
+      <div id="conversion-rate-display" class="conversion-rate-display"></div>
+    </section>
+
     <!-- Live region for screen readers -->
     <div id="announcer" aria-live="polite" class="visually-hidden">Ready</div>
 

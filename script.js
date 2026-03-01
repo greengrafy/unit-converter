@@ -173,6 +173,41 @@ if (document.readyState === 'loading') {
   initConverters();
 }
 
+// Conversion rates reference
+const conversionRates = {
+  'celsius-fahrenheit': { from: 'Celsius', to: 'Fahrenheit', rate: c => c * 9 / 5 + 32, formula: '°C × 9/5 + 32' },
+  'fahrenheit-celsius': { from: 'Fahrenheit', to: 'Celsius', rate: f => (f - 32) * 5 / 9, formula: '(°F - 32) × 5/9' },
+  'kilograms-pounds': { from: 'Kilograms', to: 'Pounds', rate: kg => kg * 2.20462, formula: 'kg × 2.20462' },
+  'pounds-kilograms': { from: 'Pounds', to: 'Kilograms', rate: lb => lb / 2.20462, formula: 'lb ÷ 2.20462' },
+  'kilometers-miles': { from: 'Kilometers', to: 'Miles', rate: km => km * 0.621371, formula: 'km × 0.621371' },
+  'miles-kilometers': { from: 'Miles', to: 'Kilometers', rate: mi => mi / 0.621371, formula: 'mi ÷ 0.621371' },
+  'liters-gallons': { from: 'Liters', to: 'Gallons', rate: l => l * 0.264172052, formula: 'L × 0.264172052' },
+  'gallons-liters': { from: 'Gallons', to: 'Liters', rate: gal => gal / 0.264172052, formula: 'gal ÷ 0.264172052' }
+};
+
+// Setup conversion rate dropdown
+const dropdown = document.getElementById('conversion-rate-dropdown');
+const rateDisplay = document.getElementById('conversion-rate-display');
+
+if (dropdown) {
+  dropdown.addEventListener('change', () => {
+    const selected = dropdown.value;
+    if (!selected || !conversionRates[selected]) {
+      rateDisplay.innerHTML = '';
+      return;
+    }
+    const data = conversionRates[selected];
+    const conversion1 = data.rate(1);
+    const displayRate = conversion1.toFixed(6).replace(/\.?0+$/, '');
+    rateDisplay.innerHTML = `
+      <div class="rate-info">
+        <p><strong>1 ${data.from}</strong> = <strong>${displayRate} ${data.to}</strong></p>
+        <p class="rate-formula">Formula: ${data.formula}</p>
+      </div>
+    `;
+  });
+}
+
 // Copy button handlers
 document.querySelectorAll('.copy-btn').forEach(btn => {
   btn.addEventListener('click', () => {
